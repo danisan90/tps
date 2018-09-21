@@ -1,0 +1,104 @@
+.container{
+  margin: 0 auto;
+}
+.banner{
+  margin: 0 auto;
+  width: 100%;
+  height: auto;
+  max-width: 90%;
+}
+.img{
+  width: 100%;
+}
+.mail{
+  width: 180px;
+  color:grey;
+  border: 1px solid black;
+  text-align: center;
+  padding: 5px;
+}
+.message{
+  text-align: center;
+  font-family: 'Pacifico', cursive;
+  font-size: 18px;
+  padding: 10px;
+  display: inline-block;
+  width: 100%;
+}
+.messagei{
+  width: 100%;
+}
+.m-button{
+  background-color: plum;
+  color: white;
+  cursor: pointer;
+  padding: 8px 12px;
+  border-radius: 4px;
+  border:none;
+  width: 100px;
+  font-size: 12px;
+}
+.icons{
+  color: plum;
+  width: 100%;
+  font-size: 30px;
+  display: inline-block;
+  text-align: right;
+}
+.twitter{
+  display: inline-block;
+}
+.instagram{
+  display: inline-block;
+}
+.facebook{
+  display: inline-block;
+}
+.fa-twitter{
+  display: inline-block;
+  color: plum;
+  padding: 10px;
+}
+.fa-instagram{
+  display: inline-block;
+  color: plum;
+  padding: 10px;
+}
+.fa-facebook{
+  display: inline-block;
+  color: plum;
+  padding: 10px;
+}
+.copyright{
+  width: 100%;
+  font: 15px arial bold;
+  margin: 0 auto;
+  position: absolute;
+  bottom: 0;
+  text-align: center;
+  display: inline-block;
+}
+.right{
+  display: inline-block;
+}
+.link{
+  display: inline-block;
+}
+a{
+  color: plum;
+}
+@media (max-width: 800px){
+  .banner{
+    margin: 0 auto;
+    width: 100%;
+    height: auto;
+  }
+  .text{
+    display: block;
+  }
+  .icons{
+    text-align: center;
+  }
+  .copyright{
+    position:unset;
+  }
