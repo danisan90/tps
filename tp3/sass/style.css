@@ -1,0 +1,103 @@
+body {
+  background-image: url("../img/football_paper.jpg");
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+}
+
+.login {
+  width: 300px;
+  height: 500px;
+  border: 10px solid black;
+  padding: 10px;
+  border-radius: 25px;
+  background-color: #EEE8AA;
+  text-align: center;
+}
+.login .title {
+  font-family: "Pattaya", sans-serif;
+  font-size: 30px;
+  margin-top: 20%;
+  color: #3fadd3;
+}
+.login .description {
+  font-family: "Amatic SC", cursive;
+  font-size: 20px;
+}
+.login .dif {
+  font-family: "Amatic SC", cursive;
+  font-size: 16px;
+}
+.login input {
+  width: 95%;
+  height: 5%;
+}
+
+#message-error {
+  color: #a74544;
+  font-family: "Pattaya", sans-serif;
+}
+
+.buttons {
+  display: flex;
+  flex-direction: column;
+}
+.buttons button {
+  background-color: #fd9727;
+  padding: 5px;
+  color: white;
+  font-family: "Comfortaa", cursive;
+  font-size: 20px;
+  border-radius: 10px;
+  text-decoration: none;
+  border-style: none;
+  margin: 5px;
+}
+
+.tablero {
+  display: none;
+  width: 500px;
+  border-radius: 25px;
+  border: 10px solid black;
+  background-color: #AFEEEE;
+  justify-content: space-around;
+}
+
+.tablero .numero {
+  height: auto;
+  width: 10%;
+  min-width: 100px;
+  font-size: 2em;
+  margin: 5px;
+  background-image: url("../eldiego.jpg");
+  background-size: cover;
+}
+
+.tablero .numero:before {
+  content: "";
+  float: left;
+  padding-top: 100%;
+}
+
+.tablero .numero .photo {
+  display: none;
+}
+
+.tablero .numero.mostrar .photo {
+  display: block;
+}
+
+.photo {
+  width: 100px;
+  height: 100px;
+  background-color: white;
+}
+
+.theimageinside {
+  width: 100%;
+  height: 100%;
+}
+
+/*# sourceMappingURL=style.css.map */
