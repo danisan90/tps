@@ -1,10 +1,35 @@
+var tries = 0;
 $(document).ready(function () {
+
   $('#easy').click(function () {
+    tries = 18;
+    $('form').hide();
+    $('.tablero').show().css({ 'display': 'flex', 'flex-wrap': 'wrap'
+    });
+
+  });
+});
+$(document).ready(function () {
+    $('#medium').click(function () {
+      var validationOk = validationUserName();
+      if (validationOk === true) {
+      tries = 12;
+      $('form').hide();
+      $('.tablero').show().css({ 'display': 'flex', 'flex-wrap': 'wrap'
+      });
+    }
+    console.log('no cargaste nombre');
+    });
+});
+$(document).ready(function () {
+  $('#expert').click(function () {
+    tries = 9;
     $('form').hide();
     $('.tablero').show().css({ 'display': 'flex', 'flex-wrap': 'wrap'
     });
   });
 });
+
 var theFirstClick = null;
 var theSecondClick = null;
 // arranco con el tablero
@@ -26,18 +51,20 @@ function createBoard () {
   for (let i = 0; i < numeros.length; i++) {
 
     // creo el div que va a tener la imagen dada vuelta, y originalmente no se va a ver hasta que hagamos click
-    var nuevoDiv1 = $('<div class="photo"></div>').prepend('<img class="theimageinside" src="' + numeros[i].imagen + '"/>')
+    var nuevoDiv1 = $('<div class="photo" ></div>').prepend('<img class="theimageinside" id="' + numeros[i].numero + '"src="' + numeros[i].imagen + '"/>')
     // creo el div, con la clase numero, que contiene al span anteriormente creado
     var nuevoDiv = $('<div class="numero"></div>').append(nuevoDiv1);
-    nuevoDiv.data('id',numeros[i].id)
+    nuevoDiv.data('id', numeros[i].id)
 
     // agrego el nuevo div al contenedor principal
     container.append(nuevoDiv);
     // genero la accion con el click
     nuevoDiv.on('click', function () {
       $(this).addClass('mostrar');
+      // cuento los intentos
+      tries--;
       console.log($(this).data('id'));
-
+      // aca arranca para matchear las imagenes---------------------------------
       if (theFirstClick === null) {
         theFirstClick = $(this).data('id');
       }
@@ -47,15 +74,34 @@ function createBoard () {
         if (theFirstClick === theSecondClick) {
           console.log("iguales");
         } else {
+          // aca lo que tiene que pasar es que los de vuelta solos
+          ReplacingImage(theSecondClick, theFirstClick);
           console.log("distintos");
         }
+        // aca termina el matcheo ----------------------------------------------
+
         // reseteo el valor de las variables
         theFirstClick = null;
         theSecondClick = null;
       }
-    }
-    );
+      console.log("Te quedan " + tries + " intentos");
+
+    });
   };
 }
+
+function ReplacingImage (firstImgId, secondImgId) {
+$('#' + 'firstImgId').attr("src","eldiego.jpg");
+$("#"+"secondImgId").attr("src","eldiego.jpg");
+}
+
+function validationUserName () {
+  var nameUser = $('#name').val();
+  if (nameUser === '') {
+    return false;
+  }
+}
+
+
 
 $(document).ready(createBoard);
