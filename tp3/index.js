@@ -1,12 +1,16 @@
 var tries = 0;
+var message = $('#message-error');
 $(document).ready(function () {
 
   $('#easy').click(function () {
+    message.html('');
+    var validationOk = validationUserName();
+    if (validationOk === true) {
     tries = 18;
     $('form').hide();
     $('.tablero').show().css({ 'display': 'flex', 'flex-wrap': 'wrap'
     });
-
+  }
   });
 });
 $(document).ready(function () {
@@ -18,15 +22,17 @@ $(document).ready(function () {
       $('.tablero').show().css({ 'display': 'flex', 'flex-wrap': 'wrap'
       });
     }
-    console.log('no cargaste nombre');
     });
 });
 $(document).ready(function () {
   $('#expert').click(function () {
+    var validationOk = validationUserName();
+    if (validationOk === true) {
     tries = 9;
     $('form').hide();
     $('.tablero').show().css({ 'display': 'flex', 'flex-wrap': 'wrap'
     });
+  }
   });
 });
 
@@ -47,6 +53,8 @@ numeros = numeros.sort(function (a, b) {
 });
 function createBoard () {
   var container = $('.tablero');
+  var titulo = $('<p id="title">Memotest</p>')
+  container.append(titulo);
 
   for (let i = 0; i < numeros.length; i++) {
 
@@ -66,16 +74,21 @@ function createBoard () {
       console.log($(this).data('id'));
       // aca arranca para matchear las imagenes---------------------------------
       if (theFirstClick === null) {
-        theFirstClick = $(this).data('id');
+        theFirstClick = { id: $(this).data('id'),
+          numero: $(this).children().children().attr('id')
+        }
       }
       else {
-        theSecondClick = $(this).data('id')
-
-        if (theFirstClick === theSecondClick) {
+        theSecondClick = { id: $(this).data('id'),
+          numero: $(this).attr('id')
+        }
+        if (theFirstClick.id === theSecondClick.id) {
+          $('#' + theFirstClick.numero).css('-webkit-filter', 'grayscale(100%)');
+          console.log(theFirstClick);
+          $(this).css('-webkit-filter', 'grayscale(100%)');
           console.log("iguales");
         } else {
-          // aca lo que tiene que pasar es que los de vuelta solos
-          ReplacingImage(theSecondClick, theFirstClick);
+
           console.log("distintos");
         }
         // aca termina el matcheo ----------------------------------------------
@@ -90,14 +103,16 @@ function createBoard () {
   };
 }
 
-function ReplacingImage (firstImgId, secondImgId) {
-$('#' + 'firstImgId').attr("src","eldiego.jpg");
-$("#"+"secondImgId").attr("src","eldiego.jpg");
-}
 
 function validationUserName () {
   var nameUser = $('#name').val();
-  if (nameUser === '') {
+  console.log(nameUser);
+  if (nameUser) {
+    console.log('valido');
+    return true;
+  }
+  else {
+    message.append('UPS... El nombre es requerido!')
     return false;
   }
 }
