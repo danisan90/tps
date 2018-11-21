@@ -1,44 +1,55 @@
 var tries = 0;
 var message = $('#message-error');
 $(document).ready(function () {
-
   $('#easy').click(function () {
-    message.html('');
-    var validationOk = validationUserName();
-    if (validationOk === true) {
+    message.html(''); // para que el mensaje de error solo este una vez
+    // validacion de ingreso (solo puede jugar si pone nombre)
+    var validation = validationUserName();
+    if (validation === true) {
     tries = 18;
     $('form').hide();
-    $('.tablero').show().css({ 'display': 'flex', 'flex-wrap': 'wrap'
-    });
+    $('.board').show().css({ 'display': 'flex', 'justify-content': 'center'
+  });;
+    $('.containerImgs').show().css({ 'display': 'flex', 'flex-wrap': 'wrap'
+  });
   }
   });
 });
 $(document).ready(function () {
     $('#medium').click(function () {
-      var validationOk = validationUserName();
-      if (validationOk === true) {
+      message.html('');
+      var validation = validationUserName();
+      if (validation === true) {
       tries = 12;
       $('form').hide();
-      $('.tablero').show().css({ 'display': 'flex', 'flex-wrap': 'wrap'
-      });
+      $('.board').show().css({ 'display': 'flex', 'justify-content': 'center'
+    });;
+      $('.containerImgs').show().css({ 'display': 'flex', 'flex-wrap': 'wrap'
+    });
     }
     });
 });
 $(document).ready(function () {
   $('#expert').click(function () {
-    var validationOk = validationUserName();
-    if (validationOk === true) {
+    message.html('');
+    var validation = validationUserName();
+    if (validation === true) {
     tries = 9;
     $('form').hide();
-    $('.tablero').show().css({ 'display': 'flex', 'flex-wrap': 'wrap'
+    $('.board').show().css({ 'display': 'flex', 'justify-content': 'center'
+    });;
+      $('.containerImgs').show().css({ 'display': 'flex', 'flex-wrap': 'wrap'
     });
-  }
-  });
+    }
+    });
 });
 
 var theFirstClick = null;
 var theSecondClick = null;
-// arranco con el tablero
+var nameUser = $('#name').val();
+var player = $('.welcome');
+console.log(nameUser);
+// arranco con el board
 var numeros = [ {
   numero: 1, imagen: 'img/chelsea.png', id: 1 }, { numero: 2, imagen: 'img/FC_Bayern_München.png', id: 2 },
 { numero: 3, imagen: 'img/cska.png', id: 3 }, { numero: 4, imagen: 'img/tigres.png', id: 4 },
@@ -52,20 +63,22 @@ numeros = numeros.sort(function (a, b) {
   return Math.random() - 0.5
 });
 function createBoard () {
-  var container = $('.tablero');
-  var titulo = $('<p id="title">Memotest</p>')
-  container.append(titulo);
-
+  var container = $('.board');
+  var container2 = $('.containerImgs');
+  player.append(nameUser);
   for (let i = 0; i < numeros.length; i++) {
 
     // creo el div que va a tener la imagen dada vuelta, y originalmente no se va a ver hasta que hagamos click
     var nuevoDiv1 = $('<div class="photo" ></div>').prepend('<img class="theimageinside" id="' + numeros[i].numero + '"src="' + numeros[i].imagen + '"/>')
-    // creo el div, con la clase numero, que contiene al span anteriormente creado
+    // creo el div, con la clase numero, que contiene a la img anteriormente creado
     var nuevoDiv = $('<div class="numero"></div>').append(nuevoDiv1);
     nuevoDiv.data('id', numeros[i].id)
 
     // agrego el nuevo div al contenedor principal
-    container.append(nuevoDiv);
+    
+    container.append(container2);
+    container2.append(nuevoDiv);
+    
     // genero la accion con el click
     nuevoDiv.on('click', function () {
       $(this).addClass('mostrar');
@@ -102,6 +115,7 @@ function createBoard () {
     });
   };
 }
+
 
 
 function validationUserName () {

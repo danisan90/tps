@@ -56,16 +56,31 @@ body {
   margin: 5px;
 }
 
-.tablero {
+.board {
   display: none;
-  width: 500px;
+  width: 900px;
   border-radius: 25px;
   border: 10px solid black;
-  background-color: #AFEEEE;
+  background-color: rgba(175, 238, 238, 0.3);
+  flex-direction: column;
   justify-content: space-around;
 }
+.board .title {
+  font-family: "Pattaya", sans-serif;
+  font-size: 40px;
+  color: #3fadd3;
+  text-align: center;
+  margin-top: 0;
+}
 
-.tablero .numero {
+.containerImgs {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  width: 500px;
+}
+
+.board .containerImgs .numero {
   height: auto;
   width: 10%;
   min-width: 100px;
@@ -73,19 +88,20 @@ body {
   margin: 5px;
   background-image: url("../eldiego.jpg");
   background-size: cover;
+  border: 3px solid paleturquoise;
 }
 
-.tablero .numero:before {
+.board .containerImgs .numero:before {
   content: "";
   float: left;
   padding-top: 100%;
 }
 
-.tablero .numero .photo {
+.board .containerImgs .numero .photo {
   display: none;
 }
 
-.tablero .numero.mostrar .photo {
+.board .containerImgs .numero.mostrar .photo {
   display: block;
 }
 
@@ -93,6 +109,7 @@ body {
   width: 100px;
   height: 100px;
   background-color: white;
+  border: 1px solid black;
 }
 
 .theimageinside {
