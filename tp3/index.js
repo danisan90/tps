@@ -112,7 +112,10 @@ function createBoard () {
           $(this).css('-webkit-filter', 'grayscale(100%)');
           console.log("iguales");
         } else {
-      
+          var firstCard = $('[id='+theFirstClick.id+']')
+          var secondCard = $('[id='+theSecondClick.id+']')
+          
+          flip();
           
           
         }
@@ -129,6 +132,14 @@ function createBoard () {
 
     });
   };
+}
+
+function flip() {
+ var ocultarCard1 = $('[id='+theFirstClick.id+']').parent().parent().removeClass("mostrar");
+ var ocultarCard2 = $('[id='+theSecondClick.id+']').parent().parent().removeClass("mostrar");
+console.log(ocultarCard2);
+console.log(ocultarCard1);
+
 }
 
 function textHtml () {
