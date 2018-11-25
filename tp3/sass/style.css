@@ -70,7 +70,7 @@ body {
   font-size: 40px;
   color: #3fadd3;
   text-align: center;
-  margin-top: 0;
+  margin: 0;
 }
 
 .containerImgs {
@@ -78,6 +78,7 @@ body {
   justify-content: center;
   flex-wrap: wrap;
   width: 500px;
+  margin: auto;
 }
 
 .board .containerImgs .numero {
@@ -109,12 +110,52 @@ body {
   width: 100px;
   height: 100px;
   background-color: white;
-  border: 1px solid black;
 }
 
 .theimageinside {
   width: 100%;
   height: 100%;
+}
+
+#welcome {
+  text-align: center;
+  font-family: "Amatic SC", cursive;
+  font-size: 25px;
+  margin: 0;
+}
+
+#intentos {
+  text-align: center;
+  font-family: "Amatic SC", cursive;
+  font-size: 25px;
+  margin: 0;
+}
+
+#dificultad {
+  text-align: center;
+  font-family: "Amatic SC", cursive;
+  font-size: 25px;
+  margin: auto;
+  background-color: #f4bd8a;
+  width: 200px;
+  height: 30px;
+  margin: auto;
+  margin-bottom: 10px;
+  border: 2px solid;
+  border-radius: 5px;
+}
+
+#tries {
+  text-align: center;
+  font-family: "Amatic SC", cursive;
+  font-size: 25px;
+  background-color: #f4bd8a;
+  width: 200px;
+  height: 30px;
+  margin: auto;
+  margin-bottom: 10px;
+  border: 2px solid;
+  border-radius: 5px;
 }
 
 /*# sourceMappingURL=style.css.map */

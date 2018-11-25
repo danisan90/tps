@@ -1,5 +1,14 @@
 var tries = 0;
 var message = $('#message-error');
+var theFirstClick = null;
+var theSecondClick = null;
+var nameUser = $('#name').val();
+var player = $('#welcome');
+var chances = $('#intentos');
+var dificultad = $('#dificultad');
+var intentos = $('#tries');
+
+
 $(document).ready(function () {
   $('#easy').click(function () {
     message.html(''); // para que el mensaje de error solo este una vez
@@ -7,48 +16,47 @@ $(document).ready(function () {
     var validation = validationUserName();
     if (validation === true) {
     tries = 18;
+    dificultad.html("Nivel: Facil");
     $('form').hide();
     $('.board').show().css({ 'display': 'flex', 'justify-content': 'center'
+    
   });;
     $('.containerImgs').show().css({ 'display': 'flex', 'flex-wrap': 'wrap'
   });
+  createBoard()
   }
   });
-});
-$(document).ready(function () {
     $('#medium').click(function () {
       message.html('');
       var validation = validationUserName();
       if (validation === true) {
       tries = 12;
+      dificultad.html("Nivel: Intermedio");
       $('form').hide();
       $('.board').show().css({ 'display': 'flex', 'justify-content': 'center'
     });;
       $('.containerImgs').show().css({ 'display': 'flex', 'flex-wrap': 'wrap'
     });
+    createBoard()
     }
     });
-});
-$(document).ready(function () {
+
   $('#expert').click(function () {
     message.html('');
     var validation = validationUserName();
     if (validation === true) {
     tries = 9;
+    dificultad.html("Nivel: Dificil");
     $('form').hide();
-    $('.board').show().css({ 'display': 'flex', 'justify-content': 'center'
-    });;
+    $('.board').show().css({ 'display': 'flex', 'justify-content': 'center'});
       $('.containerImgs').show().css({ 'display': 'flex', 'flex-wrap': 'wrap'
     });
+    createBoard()
     }
     });
 });
 
-var theFirstClick = null;
-var theSecondClick = null;
-var nameUser = $('#name').val();
-var player = $('.welcome');
-console.log(nameUser);
+
 // arranco con el board
 var numeros = [ {
   numero: 1, imagen: 'img/chelsea.png', id: 1 }, { numero: 2, imagen: 'img/FC_Bayern_München.png', id: 2 },
@@ -63,36 +71,39 @@ numeros = numeros.sort(function (a, b) {
   return Math.random() - 0.5
 });
 function createBoard () {
-  var container = $('.board');
   var container2 = $('.containerImgs');
-  player.append(nameUser);
+
+  textHtml ();
+ 
   for (let i = 0; i < numeros.length; i++) {
 
     // creo el div que va a tener la imagen dada vuelta, y originalmente no se va a ver hasta que hagamos click
     var nuevoDiv1 = $('<div class="photo" ></div>').prepend('<img class="theimageinside" id="' + numeros[i].numero + '"src="' + numeros[i].imagen + '"/>')
     // creo el div, con la clase numero, que contiene a la img anteriormente creado
+
     var nuevoDiv = $('<div class="numero"></div>').append(nuevoDiv1);
-    nuevoDiv.data('id', numeros[i].id)
+    
+    nuevoDiv.data('id', numeros[i].id);
 
     // agrego el nuevo div al contenedor principal
     
-    container.append(container2);
+    //container.append(container2);
     container2.append(nuevoDiv);
     
     // genero la accion con el click
     nuevoDiv.on('click', function () {
       $(this).addClass('mostrar');
-      // cuento los intentos
-      tries--;
-      console.log($(this).data('id'));
+   
       // aca arranca para matchear las imagenes---------------------------------
       if (theFirstClick === null) {
-        theFirstClick = { id: $(this).data('id'),
+        theFirstClick = { 
+          id: $(this).data('id'),
           numero: $(this).children().children().attr('id')
         }
       }
       else {
-        theSecondClick = { id: $(this).data('id'),
+        theSecondClick = { 
+          id: $(this).data('id'),
           numero: $(this).attr('id')
         }
         if (theFirstClick.id === theSecondClick.id) {
@@ -101,26 +112,37 @@ function createBoard () {
           $(this).css('-webkit-filter', 'grayscale(100%)');
           console.log("iguales");
         } else {
-
-          console.log("distintos");
+          functionToRunFirst();
+            setTimeout(function() {
+              $(this).removeClass('mostrar');
+            }, 2000);
+            console.log('funcionaaaaaa?')
+          
+          
         }
         // aca termina el matcheo ----------------------------------------------
 
         // reseteo el valor de las variables
+        // cuento los intentos
+      tries--;
+      // piso los intentos en el html
+      intentos.html(`Te quedan ${tries} Intentos`);
         theFirstClick = null;
         theSecondClick = null;
       }
-      console.log("Te quedan " + tries + " intentos");
 
     });
   };
 }
 
-
+function textHtml () {
+  player.html("Hola! " + $('#name').val());
+  chances.html("Encontra todos los pares en menos de " +  tries + " intentos"); 
+  intentos.html(`Te quedan ${tries} Intentos`);
+}
 
 function validationUserName () {
   var nameUser = $('#name').val();
-  console.log(nameUser);
   if (nameUser) {
     console.log('valido');
     return true;
@@ -132,5 +154,3 @@ function validationUserName () {
 }
 
 
-
-$(document).ready(createBoard);
