@@ -106,11 +106,11 @@ function createBoard () {
       else {
         theSecondClick = { 
           id: $(this).data('id'),
-          numero: $(this).attr('id')
+          numero: $(this).children().children().attr('id')
         
         }
         console.log("agarrastre la segunda")
-        console.log(theFirstClick);
+        console.log(theSecondClick);
         if (theFirstClick.id === theSecondClick.id) {
           $('#' + theFirstClick.numero).css('-webkit-filter', 'grayscale(100%)');
           console.log(theFirstClick);
