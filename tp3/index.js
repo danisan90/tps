@@ -112,11 +112,7 @@ function createBoard () {
           $(this).css('-webkit-filter', 'grayscale(100%)');
           console.log("iguales");
         } else {
-          functionToRunFirst();
-            setTimeout(function() {
-              $(this).removeClass('mostrar');
-            }, 2000);
-            console.log('funcionaaaaaa?')
+      
           
           
         }
