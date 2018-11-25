@@ -100,12 +100,17 @@ function createBoard () {
           id: $(this).data('id'),
           numero: $(this).children().children().attr('id')
         }
+        console.log("agarraste la primera")
+        console.log(theFirstClick);
       }
       else {
         theSecondClick = { 
           id: $(this).data('id'),
           numero: $(this).attr('id')
+        
         }
+        console.log("agarrastre la segunda")
+        console.log(theFirstClick);
         if (theFirstClick.id === theSecondClick.id) {
           $('#' + theFirstClick.numero).css('-webkit-filter', 'grayscale(100%)');
           console.log(theFirstClick);
@@ -115,7 +120,8 @@ function createBoard () {
           var firstCard = $('[id='+theFirstClick.id+']')
           var secondCard = $('[id='+theSecondClick.id+']')
           
-          flip();
+          flip(firstCard);
+          flip(secondCard);
           
           
         }
@@ -128,17 +134,19 @@ function createBoard () {
       intentos.html(`Te quedan ${tries} Intentos`);
         theFirstClick = null;
         theSecondClick = null;
+        console.log(theFirstClick, theSecondClick)
       }
 
     });
   };
 }
 
-function flip() {
- var ocultarCard1 = $('[id='+theFirstClick.id+']').parent().parent().removeClass("mostrar");
- var ocultarCard2 = $('[id='+theSecondClick.id+']').parent().parent().removeClass("mostrar");
-console.log(ocultarCard2);
-console.log(ocultarCard1);
+function flip(flipped) {
+ flipped.parent().parent().removeClass("mostrar");
+ console.log( flipped.parent().parent().removeClass("mostrar"))
+ console.log("se ejecuto")
+ 
+
 
 }
 
