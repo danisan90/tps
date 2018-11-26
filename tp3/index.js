@@ -1,4 +1,5 @@
 var tries = 0;
+var graysCards = 12;
 var message = $('#message-error');
 var theFirstClick = null;
 var theSecondClick = null;
@@ -93,6 +94,7 @@ function createBoard () {
     // genero la accion con el click
     nuevoDiv.on('click', function () {
       $(this).addClass('mostrar');
+      
    
       // aca arranca para matchear las imagenes---------------------------------
       if (theFirstClick === null) {
@@ -100,55 +102,68 @@ function createBoard () {
           id: $(this).data('id'),
           numero: $(this).children().children().attr('id')
         }
-        console.log("agarraste la primera")
-        console.log(theFirstClick);
       }
       else {
         theSecondClick = { 
           id: $(this).data('id'),
-          numero: $(this).children().children().attr('id')
-        
+          numero: $(this).children().children().attr('id')        
         }
-        console.log("agarrastre la segunda")
-        console.log(theSecondClick);
+
         if (theFirstClick.id === theSecondClick.id) {
           $('#' + theFirstClick.numero).css('-webkit-filter', 'grayscale(100%)');
-          console.log(theFirstClick);
           $(this).css('-webkit-filter', 'grayscale(100%)');
-          console.log("iguales");
+          graysCards = graysCards -2;
+          console.log(graysCards);
+          var firstCard = $('[id='+theFirstClick.numero+']');
+          var secondCard = $('[id='+theSecondClick.numero+']')
+         
+          $(firstCard).click(false);
+          $(secondCard).click(false);
+
+
         } else {
-          var firstCard = $('[id='+theFirstClick.id+']')
-          var secondCard = $('[id='+theSecondClick.id+']')
-          
+          // agarro el div sobre el cual voy a aplicar el flip
+          var firstCard = $('[id='+theFirstClick.numero+']')
+          var secondCard = $('[id='+theSecondClick.numero+']')
+          // le seteo un tiempo de espera para el flip
+          $(firstCard).click(false);
+          $(secondCard).click(false);
+          setTimeout(function() {
           flip(firstCard);
           flip(secondCard);
-          
-          
+        }, 1000); 
         }
         // aca termina el matcheo ----------------------------------------------
-
-        // reseteo el valor de las variables
         // cuento los intentos
+        // reseteo el valor de las variables
       tries--;
       // piso los intentos en el html
       intentos.html(`Te quedan ${tries} Intentos`);
-        theFirstClick = null;
-        theSecondClick = null;
-        console.log(theFirstClick, theSecondClick)
+      theFirstClick = null;
+      theSecondClick = null;
       }
-
+      loser(tries);
     });
   };
 }
 
-function flip(flipped) {
- flipped.parent().parent().removeClass("mostrar");
- console.log( flipped.parent().parent().removeClass("mostrar"))
- console.log("se ejecuto")
- 
-
+function winner(){
 
 }
+
+function loser(tries) {
+  if (tries === 0) {
+    $('.modal-loser').show();
+    var modal = $('.modal-content');
+    modal.append('<p id="loser-message">Perdisteee :( <br> Pero podes volver a jugar!</p>');
+    modal.append('<button id="myBtn" onClick = "backToStart()">Volver a jugar!</button>');
+  }
+
+}
+function flip(flipped) {
+ flipped.parent().parent().removeClass("mostrar");
+}
+
 
 function textHtml () {
   player.html("Hola! " + $('#name').val());
@@ -168,4 +183,6 @@ function validationUserName () {
   }
 }
 
-
+function backToStart() {
+  location.reload();
+}
