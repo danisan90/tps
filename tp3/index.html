@@ -24,9 +24,9 @@
         <input id="name" type="text" name="uname" placeholder="User name">
         <p class="dif">¿Con que dificultad te gustaría jugar?</p>
         <div class="buttons">
-          <button id="easy" type = "button">Facil</button>
-          <button id="medium" type = "button">Intermedio</button>
-          <button id="expert" type = "button">Dificil</button>
+          <button id="easy" onclick="startGame('facil')" type = "button">Facil</button>
+          <button id="medium" onclick="startGame('intermedio')" type = "button">Intermedio</button>
+          <button id="expert" onclick="startGame('dificil')" type = "button">Dificil</button>
         </div>
         <p id="message-error"></p>
       </form>
@@ -47,10 +47,21 @@
     </div> 
     <div class="modal-winner">
       <div class="modal-contentWinner">  
-          <div class="table-ranking">
-              <p id="parrafo"></p>
-          </div>
+        <div id="containerTable">
+          <table id="tablePlayers">
+            <thead>
+              <th>
+                <td>Nombre</td>
+                <td>dificultad</td>
+                <td>puntaje</td>
+              </th>
+            </thead>
+            <tbody id="tablePlayersBody"></tbody>
+          </table>
+        </div>
+        
       </div>
+
     </div>
 
     </div>

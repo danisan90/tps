@@ -8,57 +8,49 @@ var player = $('#welcome');
 var chances = $('#intentos');
 var dificultad = $('#dificultad');
 var intentos = $('#tries');
+difficulty = "";
+var tipoJuego
 var gamers = [];
-
-
-$(document).ready(function () {
-  $('#easy').click(function () {
-    message.html(''); // para que el mensaje de error solo este una vez
-    // validacion de ingreso (solo puede jugar si pone nombre)
-    var validation = validationUserName();
-    if (validation === true) {
-    tries = 18;
-    dificultad.html("Nivel: Facil");
-    $('form').hide();
-    $('.board').show().css({ 'display': 'flex', 'justify-content': 'center'
-    
-  });;
-    $('.containerImgs').show().css({ 'display': 'flex', 'flex-wrap': 'wrap'
-  });
-  createBoard()
-  
+var gamer = {};
+var dificultades = {
+  'facil': {
+    intentos: 18,
+    texto: 'facil'
+  },
+  'intermedio': {
+    intentos: 12,
+    texto: 'intermedio'
+  },
+  'dificil': {
+    intentos: 9,
+    texto: 'dificíl'
   }
-  });
-    $('#medium').click(function () {
-      message.html('');
-      var validation = validationUserName();
-      if (validation === true) {
-      tries = 12;
-      dificultad.html("Nivel: Intermedio");
-      $('form').hide();
-      $('.board').show().css({ 'display': 'flex', 'justify-content': 'center'
-    });;
-      $('.containerImgs').show().css({ 'display': 'flex', 'flex-wrap': 'wrap'
-    });
-    createBoard()
-    }
-    });
+}
 
-  $('#expert').click(function () {
-    message.html('');
-    var validation = validationUserName();
-    if (validation === true) {
-    tries = 9;
-    dificultad.html("Nivel: Dificil");
-    $('form').hide();
-    $('.board').show().css({ 'display': 'flex', 'justify-content': 'center'});
-      $('.containerImgs').show().css({ 'display': 'flex', 'flex-wrap': 'wrap'
-    });
-    createBoard()
-    }
-    });
-});
+function startGame(difficulty) {
+  tipoJuego = dificultades[difficulty];
+  message.html(''); // para que el mensaje de error solo este una vez
+  // validacion de ingreso (solo puede jugar si pone nombre)
+  var userName = $('#name').val();
+  
+  var isValidUsername = validationUserName(userName);
+  if (isValidUsername === true) {
+  tries = tipoJuego.intentos;
 
+  // armo el objeto jugadr con sus tres caracteristicas
+  gamer = {
+    nombre: userName,
+    dificultad: tipoJuego.texto,
+    puntaje: 0
+  }
+
+  dificultad.html("Nivel: " + tipoJuego.texto);
+  $('form').hide();
+  $('.board').show().css({ 'display': 'flex', 'justify-content': 'center' });
+  $('.containerImgs').show().css({ 'display': 'flex', 'flex-wrap': 'wrap'});
+  createBoard();
+  }
+}
 
 // arranco con el board
 var numeros = [ {
@@ -77,7 +69,7 @@ function createBoard () {
   var container2 = $('.containerImgs');
 
   textHtml ();
- 
+  
   for (let i = 0; i < numeros.length; i++) {
 
     // creo el div que va a tener la imagen dada vuelta, y originalmente no se va a ver hasta que hagamos click
@@ -91,13 +83,10 @@ function createBoard () {
     // agrego el nuevo div al contenedor principal
     
     //container.append(container2);
-    container2.append(nuevoDiv);
-    
+    container2.append(nuevoDiv); 
     // genero la accion con el click
     nuevoDiv.on('click', function () {
       $(this).addClass('mostrar');
-      
-   
       // aca arranca para matchear las imagenes---------------------------------
       if (theFirstClick === null) {
         theFirstClick = { 
@@ -133,6 +122,8 @@ function createBoard () {
           setTimeout(function() {
           flip(firstCard);
           flip(secondCard);
+          $(firstCard).click(false);
+          $(secondCard).click(false);
         }, 1000); 
         }
         // aca termina el matcheo ----------------------------------------------
@@ -150,55 +141,54 @@ function createBoard () {
   };
 }
 
-/* function createRanking () {
-  var myTable = $('<table id = "tableGamers"></table>');
-  var titles = "<th>Nombre </th><th>Nivel </th><th>Intentos </th>";
-  myTable.append(titles);
-  var containerTab = $("div.table-ranking");
-  containerTab.append(myTable);
-  render();
-} */
+function generateJSON () {
+gamer.puntaje = tries
+var jugadores = JSON.parse(localStorage.getItem("gamers")) || [];
+jugadores.push(gamer);
+var jugadoresStringify = JSON.stringify(jugadores);
+console.log(jugadores);
+localStorage.setItem("gamers", jugadoresStringify);
 
-/* function render() {
-  var table = $("#tableGamers");
+}
+
+function showPlayers () {
+  var gamers = JSON.parse(localStorage.getItem("gamers"));
+  var tablePlayers = $("#tablePlayersBody");
   for (let i = 0; i < gamers.length; i++) {
-    var nombre = gamers[i].nameUser;
-    var nivel = gamers[i].nameUser;
-    var intentos = gamers[i].intentos;
-
-    var tdNombre = "<td>" + nombre + "</td>";
-    var tdNivel = "<td>" + nivel + "</td>";
-    var tdIntentos = "<td>" + intentos + "</td>";
-
     var fila = $('<tr class="fila"></tr>');
 
+    var tdNombre = "<td>" + gamers[i].nombre + "</td>";
+    var tdDificultad = "<td>" + gamers[i].dificultad + "</td>";
+    var tdIntentos = "<td>" + gamers[i].puntaje + "</td>";
+
     fila.append(tdNombre);
-    fila.append(tdNivel);
+    fila.append(tdDificultad);
     fila.append(tdIntentos);
-    table.append(fila);
-    
+  
+    tablePlayers.append(fila);
   }
 
 }
- */
-function generateJSON () {
 
-  var gamer = {
-    nameUser: nameUser
-    
-  };
-  parrafo.text(JSON.stringify(gamer));
-  gamers.push(gamer);
-
+function assembleTable () {
+  var containerTable = $("#containerTable");
+  var tablePlayers = $("<table id ='tablePlayers'></table>");
+  tablePlayers.append("<th>Nombre</th><th>Dificultad</th><th>Intentos Restantes</th>"
+  );
+  containerTable.append(tablePlayers);
 }
 
 function winner(graysCards){
   if(graysCards === 0){
     $('.modal-winner').show();
+
     var modal = $('.modal-contentWinner');
     modal.append('<p id="winner-message">GANAASTEE y te sobraron '+tries+' intentos<br> Podes volver a jugar</p>');
     modal.append('<button id="myBtn" onClick = "backToStart()">Volver a jugar!</button>');
+   
     generateJSON();
+    
+    showPlayers();
   }
 
 }
@@ -222,8 +212,7 @@ function textHtml () {
   intentos.html(`Te quedan ${tries} Intentos`);
 }
 
-function validationUserName () {
-  var nameUser = $('#name').val();
+function validationUserName(nameUser) {
   if (nameUser) {
     console.log('valido');
     return true;
@@ -236,4 +225,22 @@ function validationUserName () {
 
 function backToStart() {
   location.reload();
+}
+
+function agregarPuntaje(nuevoPuntaje) {
+  var arrayPuntajes = JSON.parse(localStorage.getItem('puntajes'));
+  arrayPuntajes.push(nuevoPuntaje)
+  localStorage.setItem('puntajes', arrayPuntajes);
+
+  
+}
+
+function obtenerPuntaje() {
+  var arrayPuntajes = JSON.parse(localStorage.getItem('puntajes'));
+
+  var puntajesOrdenados = arrayPuntajes.sort(function(itemActual, itemSiguiente) {
+    return itemActual.puntaje < itemSiguiente.puntaje
+  });
+
+  return puntajesOrdenados;
 }

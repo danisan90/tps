@@ -241,14 +241,100 @@ body {
   background-color: #EEE8AA;
   border: 5px solid black;
   border-radius: 25px;
-  display: flex;
   flex-wrap: wrap;
+  flex-direction: column-reverse;
 }
 .modal-winner .modal-contentWinner #winner-message {
   color: #a74544;
   font-family: "Pattaya", sans-serif;
   text-align: center;
   margin: auto;
+}
+
+table, th, td {
+  border: 1px solid #fd9727;
+}
+
+@media (max-width: 800px) {
+  .login {
+    width: 300px;
+    height: 500px;
+    border: 10px solid black;
+    padding: 10px;
+    border-radius: 25px;
+    background-color: #EEE8AA;
+    text-align: center;
+  }
+  .login .title {
+    font-family: "Pattaya", sans-serif;
+    font-size: 50px;
+    margin-top: 20%;
+    color: #3fadd3;
+  }
+  .login .description {
+    font-family: "Amatic SC", cursive;
+    font-size: 20px;
+  }
+  .login .dif {
+    font-family: "Amatic SC", cursive;
+    font-size: 16px;
+  }
+  .login input {
+    width: 75%;
+    height: 5%;
+  }
+
+  .buttons {
+    display: flex;
+    flex-direction: column;
+    width: 75%;
+    margin: auto;
+  }
+  .buttons button {
+    background-color: #fd9727;
+    padding: 5px;
+    color: white;
+    font-family: "Comfortaa", cursive;
+    font-size: 20px;
+    border-radius: 10px;
+    text-decoration: none;
+    border-style: none;
+    margin: 5px;
+  }
+
+  .containerImgs {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    width: 400px;
+    margin: auto;
+  }
+
+  .board {
+    display: none;
+    width: 800px;
+    border-radius: 25px;
+    border: 10px solid black;
+    background-color: rgba(175, 238, 238, 0.3);
+    flex-direction: column;
+    justify-content: space-around;
+  }
+
+  .modal-contentWinner {
+    width: 500px;
+    height: 400px;
+    display: flex;
+    background-color: #EEE8AA;
+    border: 5px solid black;
+    border-radius: 25px;
+    flex-wrap: wrap;
+  }
+  .modal-contentWinner #winner-message {
+    color: #a74544;
+    font-family: "Pattaya", sans-serif;
+    text-align: center;
+    margin: auto;
+  }
 }
 
 /*# sourceMappingURL=style.css.map */
