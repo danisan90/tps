@@ -213,15 +213,20 @@ body {
   text-align: -webkit-center;
   .modal-contentWinner{
     width: 500px;
-    height: 500px;
+    height: 400px;
     display: flex;
     background-color: $background-color;
     border: 5px solid black;
     border-radius: 25px;
-    margin-top: 200px;
+    
     display: flex;
     flex-wrap: wrap;
-    
+    #winner-message{
+      color: #a74544;
+      font-family: 'Pattaya', sans-serif;
+      text-align: center;
+      margin: auto;
+    }
     
     }
   }

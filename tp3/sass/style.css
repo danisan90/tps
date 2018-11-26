@@ -236,14 +236,19 @@ body {
 }
 .modal-winner .modal-contentWinner {
   width: 500px;
-  height: 500px;
+  height: 400px;
   display: flex;
   background-color: #EEE8AA;
   border: 5px solid black;
   border-radius: 25px;
-  margin-top: 200px;
   display: flex;
   flex-wrap: wrap;
+}
+.modal-winner .modal-contentWinner #winner-message {
+  color: #a74544;
+  font-family: "Pattaya", sans-serif;
+  text-align: center;
+  margin: auto;
 }
 
 /*# sourceMappingURL=style.css.map */

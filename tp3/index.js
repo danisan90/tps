@@ -8,6 +8,7 @@ var player = $('#welcome');
 var chances = $('#intentos');
 var dificultad = $('#dificultad');
 var intentos = $('#tries');
+var gamers = [];
 
 
 $(document).ready(function () {
@@ -25,6 +26,7 @@ $(document).ready(function () {
     $('.containerImgs').show().css({ 'display': 'flex', 'flex-wrap': 'wrap'
   });
   createBoard()
+  
   }
   });
     $('#medium').click(function () {
@@ -142,12 +144,62 @@ function createBoard () {
       theFirstClick = null;
       theSecondClick = null;
       }
+      winner(graysCards);
       loser(tries);
     });
   };
 }
 
-function winner(){
+/* function createRanking () {
+  var myTable = $('<table id = "tableGamers"></table>');
+  var titles = "<th>Nombre </th><th>Nivel </th><th>Intentos </th>";
+  myTable.append(titles);
+  var containerTab = $("div.table-ranking");
+  containerTab.append(myTable);
+  render();
+} */
+
+/* function render() {
+  var table = $("#tableGamers");
+  for (let i = 0; i < gamers.length; i++) {
+    var nombre = gamers[i].nameUser;
+    var nivel = gamers[i].nameUser;
+    var intentos = gamers[i].intentos;
+
+    var tdNombre = "<td>" + nombre + "</td>";
+    var tdNivel = "<td>" + nivel + "</td>";
+    var tdIntentos = "<td>" + intentos + "</td>";
+
+    var fila = $('<tr class="fila"></tr>');
+
+    fila.append(tdNombre);
+    fila.append(tdNivel);
+    fila.append(tdIntentos);
+    table.append(fila);
+    
+  }
+
+}
+ */
+function generateJSON () {
+
+  var gamer = {
+    nameUser: nameUser
+    
+  };
+  parrafo.text(JSON.stringify(gamer));
+  gamers.push(gamer);
+
+}
+
+function winner(graysCards){
+  if(graysCards === 0){
+    $('.modal-winner').show();
+    var modal = $('.modal-contentWinner');
+    modal.append('<p id="winner-message">GANAASTEE y te sobraron '+tries+' intentos<br> Podes volver a jugar</p>');
+    modal.append('<button id="myBtn" onClick = "backToStart()">Volver a jugar!</button>');
+    generateJSON();
+  }
 
 }
 
@@ -163,7 +215,6 @@ function loser(tries) {
 function flip(flipped) {
  flipped.parent().parent().removeClass("mostrar");
 }
-
 
 function textHtml () {
   player.html("Hola! " + $('#name').val());
