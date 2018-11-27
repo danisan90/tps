@@ -1,0 +1,8 @@
+El tp se entrega con los sigueinte problemas:
+	1-bug que se puede cliquear dos veces las misma carta
+	2-el responsive no esta optimizado
+	3-metodo pantent().parent() no es lo mas optimo pero no se encontro otra forma de optimizarlo
+	4- tabla de ranking no presenta un orden por ranking
+	5-la tabla puede crecer indefinidamente
+
+:)
